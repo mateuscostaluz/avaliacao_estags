@@ -7,12 +7,12 @@ const messageSchema = new Mongoose.Schema({
     required: true,
     ref: 'User'
   },
-  letterMessage: {
+  lettersMessage: {
     type: String,
     required: false
   },
   numberMessage: {
-    type: Number,
+    type: String,
     required: false
   }
 },
@@ -21,12 +21,18 @@ const messageSchema = new Mongoose.Schema({
 })
 
 messageSchema.method('toClient', function () {
-  const obj = this.toObject()
+  var obj = this.toObject()
 
   //Rename fields
-  obj.id = obj._id
+  obj.user_id = obj.owner._id
+  obj.message_id = obj._id
+  obj.letters = obj.letterMessage
+  obj.number = obj.numberMessage
 
   // Delete fields
+  delete obj.owner
+  delete obj.lettersMessage
+  delete obj.numberMessage
   delete obj._id
   delete obj.__v
   delete obj.createdAt

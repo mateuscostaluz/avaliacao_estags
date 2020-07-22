@@ -53,11 +53,8 @@ const repositories = {
         req.owner = null
       }
     }
-    console.log(ctx.user)
     if (ctx.user) req.owner = ctx.user._id
-    console.log(req.owner)
     const messages = await Message.find(req)
-      console.log(req)
       .populate('owner')
       .exec()
     for (let i = 0; i < messages.length; i++) {

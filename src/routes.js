@@ -1,4 +1,4 @@
 module.exports = router => {
-  // require('./records')(router)
-  require('./user.routes')(router)
+  require('./message/message.routes')(router)
+  require('./user/user.routes')(router)
 }

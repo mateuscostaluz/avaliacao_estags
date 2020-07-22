@@ -1,4 +1,4 @@
-const User = require('./user.repository')
+const User = require('./user.repositories')
 
 const controller = {
   getById: async (id, ctx, next) => {
@@ -40,8 +40,8 @@ const controller = {
   },
 
   delete: async ctx => {
-    /* const documents = */ await User.delete(ctx)
-    // documents === 0 ? (ctx.status = 204) : (ctx.status = 409)
+    const documents = await User.delete(ctx)
+    documents === 0 ? (ctx.status = 204) : (ctx.status = 409)
   },
 
   list: async ctx => {
@@ -50,8 +50,8 @@ const controller = {
   },
 
   clear: async ctx => {
-    /* const documents = */ await User.clear()
-    // documents === 0 ? (ctx.status = 204) : (ctx.status = 409)
+    const documents = await User.clear()
+    documents === 0 ? (ctx.status = 204) : (ctx.status = 409)
   }
 }
 

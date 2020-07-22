@@ -1,10 +1,10 @@
-const Record = require('../repositories/records')
+const Message = require('./message.repositories')
 
 let controller = {
   getById: async (id, ctx, next) => {
     try {
-      ctx.record = await Record.findById(id)
-      if (!ctx.record) return (ctx.status = 404)
+      ctx.message = await Message.findById(id)
+      if (!ctx.message) return (ctx.status = 404)
       return next()
     } catch (err) {
       ctx.status = 400
@@ -16,7 +16,7 @@ let controller = {
       ctx.user = await UserServices.findById(ctx.request.body.owner)
       if (!ctx.user) return (ctx.status = 404)
 
-      ctx.body = Record.create(ctx)
+      ctx.body = Message.create(ctx)
       ctx.status = 201
     } catch (err) {
       ctx.status = 400
@@ -24,7 +24,7 @@ let controller = {
   },
 
   read: async ctx => {
-    ctx.body = Record.toClient(ctx.record)
+    ctx.body = Message.toClient(ctx.message)
     ctx.status = 200
   },
 
@@ -33,7 +33,7 @@ let controller = {
       ctx.user = await UserServices.findById(ctx.request.body.owner)
       if (!ctx.user) return (ctx.status = 404)
 
-      ctx.body = Record.update(ctx)
+      ctx.body = Message.update(ctx)
       ctx.status = 201
     } catch (err) {
       ctx.status = 400
@@ -41,16 +41,16 @@ let controller = {
   },
 
   delete: async ctx => {
-    ctx.body = Record.delete(ctx)
+    ctx.body = Message.delete(ctx)
   },
 
   list: async ctx => {
-    ctx.body = await Record.list(ctx)
+    ctx.body = await Message.list(ctx)
     ctx.status = 200
   },
 
   clear: async ctx => {
-    ctx.body = await Record.clear()
+    ctx.body = await Message.clear()
   }
 }
 

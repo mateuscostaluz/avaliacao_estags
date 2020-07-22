@@ -1,34 +1,30 @@
 const Mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-auto-increment')
 
-const recordSchema = new Mongoose.Schema(
-  {
-    value: {
-      type: Number,
-      required: true
-    },
-    owner: {
-      type: Number,
-      required: true,
-      ref: 'User'
-    },
-    type: {
-      type: String,
-      required: false
-    }
+const messageSchema = new Mongoose.Schema({
+  owner: {
+    type: Number,
+    required: true,
+    ref: 'User'
   },
-  { timestamps: true }
-)
+  letterMessage: {
+    type: String,
+    required: false
+  },
+  numberMessage: {
+    type: Number,
+    required: false
+  }
+},
+{
+  timestamps: true
+})
 
-recordSchema.method('toClient', function () {
-  var obj = this.toObject()
+messageSchema.method('toClient', function () {
+  const obj = this.toObject()
 
   //Rename fields
   obj.id = obj._id
-  obj.owner = {
-    id: obj.owner._id,
-    email: obj.owner.email
-  }
 
   // Delete fields
   delete obj._id
@@ -39,11 +35,13 @@ recordSchema.method('toClient', function () {
   return obj
 })
 
-recordSchema.plugin(AutoIncrement.plugin, {
-  model: 'Record',
+AutoIncrement.initialize(Mongoose.connection)
+
+messageSchema.plugin(AutoIncrement.plugin, {
+  model: 'Message',
   startAt: 1
 })
 
-Mongoose.model('Record', recordSchema)
+Mongoose.model('Message', messageSchema)
 
-module.exports = Mongoose.model('Record')
+module.exports = Mongoose.model('Message')

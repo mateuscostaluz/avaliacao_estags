@@ -1,3 +1,4 @@
+/*
 const Record = require('../repositories/records')
 
 service = {
@@ -13,3 +14,4 @@ service = {
 }
 
 module.exports = service
+*/

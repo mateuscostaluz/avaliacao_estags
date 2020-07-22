@@ -1,0 +1,25 @@
+{
+  "name": "avaliacao_estags",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Mateus Costa Luz",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r esm -r dotenv/config index.js",
+    "start": "node -r esm -r dotenv/config index.js"
+  },
+  "dependencies": {
+    "esm": "^3.2.25",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^9.1.0",
+    "mongoose": "^5.9.25",
+    "mongoose-auto-increment": "^5.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4"
+  }
+}

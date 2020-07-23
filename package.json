@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": "Mateus Costa Luz",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "nodemon -r esm -r dotenv/config index.js",
     "start": "node -r esm -r dotenv/config index.js"
   },

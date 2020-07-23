@@ -1,11 +1,6 @@
 const Message = require('./message.repositories')
 
 let controller = {
-  index: async (ctx) => {
-    ctx.body = await Message.index(ctx)
-    ctx.status = 200
-  },
-
   getById: async (id, ctx, next) => {
     try {
       ctx.message = await Message.findById(id)
@@ -36,7 +31,8 @@ let controller = {
   },
 
   delete: async ctx => {
-    ctx.body = Message.delete(ctx)
+    Message.delete(ctx)
+    ctx.status = 204
   },
 
   list: async ctx => {

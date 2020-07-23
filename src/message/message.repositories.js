@@ -27,29 +27,9 @@ const repositories = {
     return message.toClient()
   },
 
-  delete: async ctx => await Message.findOneAndDelete({ _id: ctx.message.id }).exec(),
+  delete: async ctx => await Message.findOneAndDelete(ctx.message.id).exec(),
 
-  list: async ctx => {
-    const req = {}
-    if (ctx.query.owner_id) {
-      try {
-        const user = await UserServices.findById(ctx.request.body.owner)
-        req.owner = user._id
-      } catch (err) {
-        req.owner = null
-      }
-    }
-    if (ctx.user) req.owner = ctx.user._id
-    const messages = await Message.find(req)
-      .populate('owner')
-      .exec()
-    for (let i = 0; i < messages.length; i++) {
-      messages[i] = messages[i].toClient()
-    }
-    return messages
-  },
-
-  index: async (ctx) =>  {
+  list: async (ctx) =>  {
     const { page, limit } = ctx.query
     const messages = await Message.find()
       .limit(limit * 1)

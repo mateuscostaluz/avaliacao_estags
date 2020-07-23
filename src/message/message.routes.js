@@ -6,6 +6,5 @@ module.exports = router => {
     .post('/messages/', messages.create)
     .get('/messages/:message_id', messages.read)
     .delete('/messages/:message_id', messages.delete)
-    .get('/messages', messages.index)
-    .get('/messages/users/', messages.list)
+    .get('/messages', messages.list)
 }

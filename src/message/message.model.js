@@ -1,5 +1,7 @@
 const Mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-auto-increment')
+const Moment = require('moment')
+const MongoosePaginate = require('mongoose-paginate')
 
 const messageSchema = new Mongoose.Schema({
   owner: {
@@ -28,7 +30,7 @@ messageSchema.method('toClient', function () {
   obj.message_id = obj._id
   obj.letter_message = obj.letterMessage
   obj.number_message = obj.numberMessage
-  obj.creation_date = obj.createdAt.toDateString()
+  obj.creation_date = Moment(obj.createdAt).format('DD/MM/YYYY')
 
   // Delete fields
   delete obj.owner
@@ -45,6 +47,7 @@ messageSchema.method('toClient', function () {
 AutoIncrement.initialize(Mongoose.connection)
 
 messageSchema.plugin(AutoIncrement.plugin, {
+  MongoosePaginate,
   model: 'Message',
   startAt: 1
 })

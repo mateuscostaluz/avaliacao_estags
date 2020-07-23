@@ -10,5 +10,4 @@ module.exports = router => {
     .put('/users/:user_id', users.update)
     .delete('/users/:user_id', users.delete)
     .get('/users/', users.list)
-    .delete('/users/', users.clear)
 }

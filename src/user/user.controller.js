@@ -47,11 +47,6 @@ const controller = {
   list: async ctx => {
     ctx.body = await User.list()
     ctx.status = 200
-  },
-
-  clear: async ctx => {
-    const documents = await User.clear()
-    documents === 0 ? (ctx.status = 204) : (ctx.status = 409)
   }
 }
 

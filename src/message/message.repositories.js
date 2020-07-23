@@ -6,12 +6,12 @@ const repositories = {
   toClient: message => message.toClient(),
 
   findById: async id =>
-    await Record.findById(id)
+    await Message.findById(id)
       .populate('owner')
       .exec(),
 
-  findRecords: async () =>
-    await Record.find()
+  findMessages: async () =>
+    await Message.find()
       .populate('owner')
       .exec(),
 
@@ -27,19 +27,7 @@ const repositories = {
     return message.toClient()
   },
 
-  update: async ctx => {
-    const message = await Message.findById(ctx.params.message_id)
-
-    await Message.populate(message, { path: 'owner' })
-
-    await message.save()
-
-    return message.toClient()
-  },
-
   delete: async ctx => await Message.findOneAndDelete({ _id: ctx.message.id }).exec(),
-
-  clear: async () => await Message.deleteMany().exec(),
 
   list: async ctx => {
     const req = {}
@@ -54,6 +42,18 @@ const repositories = {
     if (ctx.user) req.owner = ctx.user._id
     const messages = await Message.find(req)
       .populate('owner')
+      .exec()
+    for (let i = 0; i < messages.length; i++) {
+      messages[i] = messages[i].toClient()
+    }
+    return messages
+  },
+
+  index: async (ctx) =>  {
+    const { page, limit } = ctx.query
+    const messages = await Message.find()
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
       .exec()
     for (let i = 0; i < messages.length; i++) {
       messages[i] = messages[i].toClient()

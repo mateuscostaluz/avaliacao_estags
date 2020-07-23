@@ -35,13 +35,6 @@ const repositories = {
     return messages
   },
 
-  clear: async () => {
-    const messages = await Message.countDocuments().exec()
-    if (messages === 0)
-    await User.deleteMany().exec()
-    return messages
-  },
-
   list: async () => {
     const users = await repositories.findUsers()
     for (let i = 0; i < users.length; i++) {

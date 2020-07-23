@@ -16,6 +16,8 @@ let controller = {
       ctx.user = await UserServices.findById(ctx.request.body.owner)
       if (!ctx.user) return (ctx.status = 404)
 
+      if(ctx.request.body.letterMessage && ctx.request.body.numberMessage) return (ctx.status = 400)
+
       ctx.body = Message.create(ctx)
       ctx.status = 201
     } catch (err) {
@@ -32,6 +34,8 @@ let controller = {
     try {
       ctx.user = await UserServices.findById(ctx.request.body.owner)
       if (!ctx.user) return (ctx.status = 404)
+
+      if(ctx.request.body.letterMessage || ctx.request.body.numberMessage) return (ctx.status = 400)
 
       ctx.body = Message.update(ctx)
       ctx.status = 201

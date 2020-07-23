@@ -1,7 +1,7 @@
 const User = require('../user/user.repositories')
 
-service = {
+services = {
   findById: async id => await User.findById(id)
 }
 
-module.exports = service
+module.exports = services

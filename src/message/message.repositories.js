@@ -16,11 +16,11 @@ const repositories = {
       .exec(),
 
   create: async ctx => {
+    ctx.request.body = await MessageServices.conversion(ctx.request.body)
+
     const message = new Message(ctx.request.body)
 
     await Message.populate(message, { path: 'owner' })
-
-    // message.type = MessageServices.setTypeByValue(message.value)
 
     await message.save()
 
@@ -31,8 +31,6 @@ const repositories = {
     const message = await Message.findById(ctx.params.message_id)
 
     await Message.populate(message, { path: 'owner' })
-
-    // message.type = MessageServices.setTypeByValue(message.value)
 
     await message.save()
 
